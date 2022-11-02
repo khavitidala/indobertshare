@@ -1,0 +1,10 @@
+checkpoint-300000/
+liputan6_data/
+liputan6_extend/
+liputan6_extended/
+*.csv
+*.zip
+*.txt
+*.tar.gz
+.ipynb_checkpoints/
+__pycache__/
