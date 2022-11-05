@@ -33,11 +33,11 @@ class AbsSumExtract:
         outputs = self.model.generate(
             input_ids,
             attention_mask=attention_mask,
-            min_length=20,
+            min_length=15,
             max_length=80, 
-            num_beams=4,
+            num_beams=5,
             early_stopping=True,
-            no_repeat_ngram_size=3,
+            no_repeat_ngram_size=3, # trigram blocking
         )
         output_str = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         res_dict["id"] += batch["id"]

@@ -16,11 +16,15 @@ class AbsSumFilter:
     @cached_property
     def extract_data(self):
         if CODE_NAME == "indoNLI":
-            ds = []
-            for dsplit in ["train", "validation", "test_lay", "test_expert"]:
-                filter_data_conf["split"] = dsplit
-                ds.append(datasets.load_dataset(**filter_data_conf))
-            extract_data = datasets.concatenate_datasets(ds)
+            if not is_expert:
+                ds = []
+                for dsplit in ["train", "validation", "test_lay"]:
+                    filter_data_conf["split"] = dsplit
+                    ds.append(datasets.load_dataset(**filter_data_conf))
+                extract_data = datasets.concatenate_datasets(ds)
+            else:
+                filter_data_conf["split"] = "test_expert"
+                extract_data = datasets.load_dataset(**filter_data_conf)
             extract_data = extract_data.filter(lambda x: x["label"] != 2) # 2 means contradictions
             extract_data = extract_data.remove_columns(["label"])
             return extract_data
@@ -87,7 +91,9 @@ class AbsSumFilter:
             batch_size=filter_batch_size,
             remove_columns=[self.col1, self.col2],
         )
-        fname = f"{CODE_NAME}-{str(int(datetime.now().timestamp()))}"
+        fname = f"{MAIN_PATH}paraphrase/{CODE_NAME}-{str(int(datetime.now().timestamp()))}"
+        if is_expert:
+            fname = fname+"-expert"
         dfs = pd.DataFrame(self.res)
         dfs.to_csv(f"{fname}-phase1.csv", index=False)
 
@@ -123,5 +129,5 @@ class AbsSumFilter:
         self.extract_data = self.extract_data.filter(lambda x: x["ibleu_score"] > avg_ibleu)
         
         print("save the final result")
-        self.extract_data.save_to_disk(f"./{fname}")
-        self.extract_data.to_csv(f"{fname}-final_result.csv")
+        self.extract_data.save_to_disk(fname)
+        self.extract_data.to_csv(f"{fname}-final.csv")

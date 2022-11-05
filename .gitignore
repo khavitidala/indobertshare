@@ -8,6 +8,7 @@ liputan6-1667267805/
 paracotta_full-1667328825/
 runs/
 .ipynb_checkpoints/
+venv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

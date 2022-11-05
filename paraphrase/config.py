@@ -1,20 +1,19 @@
-MAIN_PATH = "/workspace/bertshare/"
+PATH = "/workspace/bertshare"
+MAIN_PATH = PATH+"/paraphrase"
 
 # Training Config
-
-bert_model="indolem/indobert-base-uncased"
-tie_encoder_decoder=True
 batch_size=16
-encoder_max_length=512
+encoder_max_length=128
 decoder_max_length=128
 valid_num=500
 resume_checkpoint=False
-# resume_checkpoint=MAIN_PATH+"summarization/checkpoint-100000"
+# resume_checkpoint=MAIN_PATH+"/checkpoint-100000"
 
+# Filtered ParaCotta
 train_data_conf: dict = {
-    "path": "id_liputan6",
+    "path": "filtered_paracotta",
     "name": "canonical",
-    "data_dir": MAIN_PATH+"summarization/liputan6_data",
+    "data_dir": MAIN_PATH+"/filtered_paracotta",
     "split": "train"
 }
 val_data_conf: dict = {
@@ -23,7 +22,9 @@ val_data_conf: dict = {
     "data_dir": MAIN_PATH+"summarization/liputan6_data",
     "split": "validation[:25%]"
 }
-bert2bert_conf: dict = {
+
+
+indobart_conf: dict = {
     "max_length": 80,
     "min_length": 15,
     "no_repeat_ngram_size": 3, # trigram blocking
@@ -32,7 +33,7 @@ bert2bert_conf: dict = {
     "num_beams": 5
 }
 seq2seq_args: dict = {
-    "output_dir": MAIN_PATH+"summarization/",
+    "output_dir": MAIN_PATH+"/",
     "evaluation_strategy": "steps",
     "per_device_train_batch_size": batch_size,
     "per_device_eval_batch_size": batch_size,
@@ -55,7 +56,7 @@ extract_data_conf = {
     "path": "id_liputan6",
     "name": "canonical",
     "data_dir": MAIN_PATH+"summarization/liputan6_data",
-    "split": "validation"
+    "split": "test"
 }
 extract_path = MAIN_PATH+"summarization/"
 
