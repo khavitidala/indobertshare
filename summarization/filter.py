@@ -36,6 +36,8 @@ class AbsSumFilter:
             extract_data = datasets.Dataset.from_pandas(df)
         else:
             extract_data = datasets.load_dataset(**filter_data_conf)
+            if not filter_data_conf.__contains__("split"):
+                extract_data = extract_data["train"]
         # extract_data = extract_data.select(range(filter_batch_size))
         return extract_data
 
@@ -63,7 +65,8 @@ class AbsSumFilter:
             with open(f"log-{str(int(datetime.now().timestamp()))}.txt", "w") as f:
                 f.write(str(e))
             return None
-        
+        # results = {}
+        # results["f1"] = [0.1 for _ in range(len(batch[self.col1]))]
         self.res[self.col1] += batch[self.col1]
         self.res[self.col2] += batch[self.col2]
         self.res["bert_score"] += [round(r*100, 2) for r in results["f1"]]
@@ -76,6 +79,7 @@ class AbsSumFilter:
         except Exception as e:
             with open(f"log-{str(int(datetime.now().timestamp()))}.txt", "w") as f:
                 f.write(str(e))
+            self.res["ibleu_score"].append(0)
             return None
         
         self.res["ibleu_score"].append(round(100 - res["score"], 2))
@@ -115,19 +119,23 @@ class AbsSumFilter:
                         "ibleu_score": []
                     }
         _ = self.extract_data.map(self.calculate_ibleu, batched=False, remove_columns=[self.col1, self.col2])
-        dfs = pd.DataFrame(self.res)
-        dfs.to_csv(f"{fname}-phase2.csv", index=False)
+        try:
+            dfs = pd.DataFrame(self.res)
+            dfs.to_csv(f"{fname}-phase2.csv", index=False)
 
-        print("phase II.2: get average inverse BLEU from all data")
-        avg_ibleu = statistics.mean(self.res["ibleu_score"])
-        print("average inverse BLEU: "+str(avg_ibleu))
-        with open(f"{fname}-avg_ibleu.txt", "w") as f:
-            f.write(str(avg_ibleu))
+            print("phase II.2: get average inverse BLEU from all data")
+            avg_ibleu = statistics.mean(self.res["ibleu_score"])
+            print("average inverse BLEU: "+str(avg_ibleu))
+            with open(f"{fname}-avg_ibleu.txt", "w") as f:
+                f.write(str(avg_ibleu))
 
-        print("phase III.3: filter data by score > average inverse BLEU")
-        self.extract_data = datasets.Dataset.from_pandas(dfs)
-        self.extract_data = self.extract_data.filter(lambda x: x["ibleu_score"] > avg_ibleu)
+            print("phase III.3: filter data by score > average inverse BLEU")
+            self.extract_data = datasets.Dataset.from_pandas(dfs)
+            self.extract_data = self.extract_data.filter(lambda x: x["ibleu_score"] > avg_ibleu)
+
+            print("save the final result")
+            self.extract_data.save_to_disk(fname)
+            self.extract_data.to_csv(f"{fname}-final.csv")
         
-        print("save the final result")
-        self.extract_data.save_to_disk(fname)
-        self.extract_data.to_csv(f"{fname}-final.csv")
+        except Exception:
+            pass

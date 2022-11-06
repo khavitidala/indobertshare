@@ -55,7 +55,7 @@ extract_data_conf = {
     "path": "id_liputan6",
     "name": "canonical",
     "data_dir": MAIN_PATH+"summarization/liputan6_data",
-    "split": "validation"
+    "split": "train"
 }
 extract_path = MAIN_PATH+"summarization/"
 
@@ -64,13 +64,14 @@ extract_path = MAIN_PATH+"summarization/"
 FILTER_DATA_FOLDER = MAIN_PATH+"summarization"
 filter_num_layer = 9
 filter_batch_size = 32
+is_expert = False
 
 # ParaCotta ID
-CODE_NAME = "paracotta_full"
-filter_data_from_csv = True
-filter_data_path = MAIN_PATH+"summarization/paracotta_full.csv"
-col1='references'
-col2='paraphrase'
+# CODE_NAME = "paracotta_full"
+# filter_data_from_csv = True
+# filter_data_path = MAIN_PATH+"summarization/paracotta_full.csv"
+# col1='references'
+# col2='paraphrase'
 
 # IndoNLI
 # CODE_NAME = "indoNLI"
@@ -84,9 +85,16 @@ col2='paraphrase'
 # col2 = "hypothesis"
 
 # Liputan6
-# CODE_NAME = "liputan6"
-# filter_data_from_csv = True
-# filter_data_path = MAIN_PATH+"summarization/liputan6_generated_all.csv"
-# col1 = "summary"
-# col2 = "generated_summary"
+import glob
+
+CODE_NAME = "liputan6"
+filter_data_from_csv = False
+filter_data_folder = MAIN_PATH+"summarization/liputan6_extended/"
+filter_data_conf: dict = {
+    "path": "csv",
+    "data_dir": filter_data_folder,
+    "data_files": glob.glob(filter_data_folder+"*.csv")
+}
+col1 = "summary"
+col2 = "generated_summary"
 

@@ -1,0 +1,9 @@
+data/
+filtered_liputan6-indonlu/
+filtered_paracotta/
+output_logs/
+*.txt
+*.csv
+*.xlsx
+*.zip
+*.tar.gz
