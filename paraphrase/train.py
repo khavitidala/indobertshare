@@ -4,38 +4,42 @@ from .base import *
 class TrainIndoBart(IndoBart):
     
     @cached_property
+    def all_data(self):
+        return datasets.load_dataset(split="train", **data_conf)
+    
+    @cached_property
     def train_data(self):
-        train_data = datasets.load_dataset(**train_data_conf)
+        train_ds = self.all_data.select(range(0, self.all_data.num_rows-100))
         if train_num:
-            train_data = train_data.select(range(train_num))
-        train_data = train_data.map(
+            train_ds = train_ds.select(range(train_num))
+        train_ds = train_ds.map(
             self.process_data_to_model_inputs, 
             batched=True, 
             batch_size=batch_size, 
-            remove_columns=['id', 'url', 'clean_article', 'clean_summary', 'extractive_summary'],
+            remove_columns=[col1, col2],
             num_proc=4
         )
-        train_data.set_format(
+        train_ds.set_format(
             type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
         )
-        return train_data
+        return train_ds
     
     @cached_property
     def val_data(self):
-        val_data = datasets.load_dataset(**val_data_conf)
+        val_ds = self.all_data.select(range(self.all_data.num_rows-100, self.all_data.num_rows))
         if valid_num:
-            val_data = val_data.select(range(valid_num))
-        val_data = val_data.map(
+            val_ds = val_ds.select(range(valid_num))
+        val_ds = val_ds.map(
             self.process_data_to_model_inputs, 
             batched=True, 
             batch_size=batch_size, 
-            remove_columns=['id', 'url', 'clean_article', 'clean_summary', 'extractive_summary'],
+            remove_columns=[col1, col2],
             num_proc=4
         )
-        val_data.set_format(
+        val_ds.set_format(
             type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
         )
-        return val_data
+        return val_ds
     
     def train(self):
         training_args = Seq2SeqTrainingArguments(**seq2seq_args)

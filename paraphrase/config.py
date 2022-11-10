@@ -6,47 +6,54 @@ batch_size=16
 encoder_max_length=128
 decoder_max_length=128
 train_num=False
-valid_num=500
+valid_num=100
+from_checkpoint=False
 resume_checkpoint=False
 # resume_checkpoint=MAIN_PATH+"/checkpoint-100000"
 
-# Filtered ParaCotta
-data_conf: dict = {
-    "path": "filtered_paracotta",
-    "data_dir": MAIN_PATH+"/filtered_paracotta"
-}
+# col1='references'
+# col2='paraphrase'
 
-# Full ParaCotta
+# # Filtered ParaCotta
+# data_conf: dict = {
+#     "path": "filtered_paracotta",
+#     "data_dir": MAIN_PATH+"/filtered_paracotta"
+# }
+
+# # Full ParaCotta
+# data_conf: dict = {
+#     "path": "csv",
+#     "data_dir": MAIN_PATH+"/data",
+#     "data_files": MAIN_PATH+"/data/full_paracotta.csv"
+# }
+
+col1 = "summary"
+col2 = "generated_summary"
+
+# # filtered_liputan6-indonlu
+# data_conf: dict = {
+#     "path": "filtered_liputan6-indonlu"
+# }
+
+# # full_liputan6-indonlu
+# data_conf: dict = {
+#     "path": "csv",
+#     "data_dir": MAIN_PATH+"/data",
+#     "data_files": MAIN_PATH+"/data/full_liputan6-indonlu.csv"
+# }
+
+# # full_liputan6-indolem
+# data_conf: dict = {
+#     "path": "csv",
+#     "data_dir": MAIN_PATH+"/data",
+#     "data_files": MAIN_PATH+"/data/full_liputan6-indolem.csv"
+# }
+
+OUTPUT_DIR = MAIN_PATH+"/filtered_liputan6-indolem/"
 data_conf: dict = {
     "path": "csv",
     "data_dir": MAIN_PATH+"/data",
-    "data_files": MAIN_PATH+"/data/full_paracotta.csv"
-}
-
-# filtered_liputan6-indonlu
-data_conf: dict = {
-    "path": "filtered_liputan6-indonlu",
-    "data_dir": MAIN_PATH+"/filtered_liputan6-indonlu"
-}
-
-# full_liputan6-indonlu
-data_conf: dict = {
-    "path": "csv",
-    "data_dir": MAIN_PATH+"/data",
-    "data_files": MAIN_PATH+"/data/full_liputan6-indonlu.csv"
-}
-
-# filtered_liputan6-indolem
-data_conf: dict = {
-    "path": "filtered_liputan6-indolem",
-    "data_dir": MAIN_PATH+"/filtered_liputan6-indolem"
-}
-
-# full_liputan6-indolem
-data_conf: dict = {
-    "path": "csv",
-    "data_dir": MAIN_PATH+"/data",
-    "data_files": MAIN_PATH+"/data/full_liputan6-indolem.csv"
+    "data_files": MAIN_PATH+"/data/filtered_liputan6-indolem.csv"
 }
 
 indobart_conf: dict = {
@@ -58,61 +65,18 @@ indobart_conf: dict = {
     "num_beams": 5
 }
 seq2seq_args: dict = {
-    "output_dir": MAIN_PATH+"/",
+    "output_dir": OUTPUT_DIR,
     "evaluation_strategy": "steps",
     "per_device_train_batch_size": batch_size,
     "per_device_eval_batch_size": batch_size,
     "predict_with_generate": True,
     "logging_steps": 5000,
-    "save_steps": 50000,
-    "eval_steps": 20000,
+    "save_steps": 25000,
+    "eval_steps": 25000,
     "warmup_steps": 8000,
-    "max_steps": 300000,
+    "max_steps": 200000,
     "overwrite_output_dir": True,
     "save_total_limit": 4,
     "fp16": True, 
 }
-
-# Extraction Config
-
-extract_batch_size = 32
-extract_model_checkpoint = MAIN_PATH+"summarization/checkpoint-150000"
-extract_data_conf = {
-    "path": "id_liputan6",
-    "name": "canonical",
-    "data_dir": MAIN_PATH+"summarization/liputan6_data",
-    "split": "train"
-}
-extract_path = MAIN_PATH+"summarization/"
-
-# Filtration Config
-
-FILTER_DATA_FOLDER = MAIN_PATH+"summarization"
-filter_num_layer = 9
-filter_batch_size = 32
-
-# ParaCotta ID
-CODE_NAME = "paracotta_full"
-filter_data_from_csv = True
-filter_data_path = MAIN_PATH+"summarization/paracotta_full.csv"
-col1='references'
-col2='paraphrase'
-
-# IndoNLI
-# CODE_NAME = "indoNLI"
-# filter_data_from_csv = False
-# filter_data_path = ""
-# filter_data_conf: dict = {
-#     "path": "indonli",
-#     "split": "train",
-# }
-# col1 = "premise"
-# col2 = "hypothesis"
-
-# Liputan6
-# CODE_NAME = "liputan6"
-# filter_data_from_csv = True
-# filter_data_path = MAIN_PATH+"summarization/liputan6_generated_all.csv"
-# col1 = "summary"
-# col2 = "generated_summary"
 

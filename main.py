@@ -1,6 +1,7 @@
 import argparse
 
 from summarization import train, extract, filter as fl
+from paraphrase import train as trpar
 
 parser = argparse.ArgumentParser() 
 parser.add_argument("-m", "--mode", help = "train/extract", default="train")
@@ -20,6 +21,10 @@ if args.task == "sum":
     else:
         print("Wrong mode!")
 elif args.task == "par":
-    pass
+    if args.mode == "train":
+        par = trpar.TrainIndoBart()
+        par.train()
+    else:
+        print("Wrong mode!")
 else:
     print("Wrong task!")
