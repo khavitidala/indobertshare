@@ -134,7 +134,7 @@ class AbsSumFilter:
             self.extract_data = self.extract_data.filter(lambda x: x["ibleu_score"] > avg_ibleu)
 
             print("save the final result")
-            self.extract_data.save_to_disk(fname)
+            # self.extract_data.save_to_disk(fname)
             self.extract_data.to_csv(f"{fname}-final.csv")
         
         except Exception:

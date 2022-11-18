@@ -85,16 +85,33 @@ is_expert = False
 # col2 = "hypothesis"
 
 # Liputan6
-import glob
+# import glob
 
-CODE_NAME = "liputan6"
-filter_data_from_csv = False
-filter_data_folder = MAIN_PATH+"summarization/liputan6_extended/"
-filter_data_conf: dict = {
-    "path": "csv",
-    "data_dir": filter_data_folder,
-    "data_files": glob.glob(filter_data_folder+"*.csv")
-}
-col1 = "summary"
-col2 = "generated_summary"
+# CODE_NAME = "liputan6"
+# filter_data_from_csv = False
+# filter_data_folder = MAIN_PATH+"summarization/liputan6_extended/"
+# filter_data_conf: dict = {
+#     "path": "csv",
+#     "data_dir": filter_data_folder,
+#     "data_files": glob.glob(filter_data_folder+"*.csv")
+# }
+# col1 = "summary"
+# col2 = "generated_summary"
 
+# CODE_NAME = "filtered_liputan6-indolem-preds"
+# filter_data_from_csv = True
+# filter_data_path = MAIN_PATH+"summarization/filtered_liputan6-indolem-preds.csv"
+# col1='hyp'
+# col2='label'
+
+# CODE_NAME = "filtered_paracotta-preds"
+# filter_data_from_csv = True
+# filter_data_path = MAIN_PATH+"summarization/filtered_paracotta-preds.csv"
+# col1='hyp'
+# col2='label'
+
+CODE_NAME = "full_liputan6-indolem-preds"
+filter_data_from_csv = True
+filter_data_path = MAIN_PATH+"summarization/full_liputan6-indolem-preds.csv"
+col1='hyp'
+col2='label'
