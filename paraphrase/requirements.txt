@@ -13,4 +13,3 @@ sacrebleu==1.5.0
 xlsxwriter
 transformers==4.3.2
 indobenchmark-toolkit==0.0.4
-tensorflow==2.4.0
