@@ -18,6 +18,7 @@ class AbsSumExtract:
     @cached_property
     def extract_data(self):
         extract_data = datasets.load_dataset(**extract_data_conf)
+        extract_data = extract_data.select(32) # for demo purpose
         return extract_data
     
     @cached_property
@@ -48,7 +49,8 @@ class AbsSumExtract:
     
     def extract(self):
         name = extract_model_checkpoint.split('/')[-1]
-        fname = f"{extract_path}{name}-{extract_data_conf.get('name')}-{extract_data_conf.get('split')}-extraction_results.csv"
+        # fname = f"{extract_path}{name}-{extract_data_conf.get('name')}-{extract_data_conf.get('split')}-extraction_results.csv"
+        fname = f"{extract_path}demo.csv"
         _ = self.extract_data.map(
             self.generate_summary,
             batched=True,

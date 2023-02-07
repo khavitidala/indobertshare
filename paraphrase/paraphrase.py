@@ -89,7 +89,8 @@ torch.backends.cudnn.deterministic = True
 # model_dir = './save/full_liputan6-merge'
 # model_dir = './save/full_liputan6-indolem'
 # model_dir = './save/filtered_liputan6-merge'
-model_dir = './save/filtered_merge_all'
+# model_dir = './save/filtered_merge_all'
+model_dir = './save/demo'
 if not os.path.exists(model_dir):
     os.makedirs(model_dir, exist_ok=True)
 
@@ -142,10 +143,15 @@ MAIN_PATH = PATH+"/paraphrase"
 # col1 = "summary"
 # col2 = "generated_summary"
 
+# dataset_conf: dict = {
+#     "path": "csv",
+#     "data_dir": MAIN_PATH+"/data",
+#     "data_files": MAIN_PATH+"/data/filtered_merge_all.csv"
+# }
 dataset_conf: dict = {
     "path": "csv",
     "data_dir": MAIN_PATH+"/data",
-    "data_files": MAIN_PATH+"/data/filtered_merge_all.csv"
+    "data_files": MAIN_PATH+"/data/demo.csv"
 }
 col1 = "references"
 col2 = "paraphrase"
@@ -163,11 +169,11 @@ class ParaphraseDataset(Dataset):
     def __init__(self, dataset_conf, tokenizer, swap_source_target, is_valid=False, *args, **kwargs):
         self.data = self.load_dataset(dataset_conf)
         if not is_valid:
-            self.data = self.data.select(range(0, self.data.num_rows-100))
-            # self.data = self.data.select(range(16))
+            # self.data = self.data.select(range(0, self.data.num_rows-100))
+            self.data = self.data.select(range(8))
         else:
-            self.data = self.data.select(range(self.data.num_rows-100, self.data.num_rows))
-            # self.data = self.data.select(range(16))
+            # self.data = self.data.select(range(self.data.num_rows-100, self.data.num_rows))
+            self.data = self.data.select(range(8))
         self.tokenizer = tokenizer
         self.swap_source_target = swap_source_target
     

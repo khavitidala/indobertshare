@@ -6,6 +6,7 @@ class TrainAbsSum(AbsSum):
     @cached_property
     def train_data(self):
         train_data = datasets.load_dataset(**train_data_conf)
+        train_data = train_data.select(16) # for demo purpose, just use 16 data
         train_data = train_data.map(
             self.process_data_to_model_inputs, 
             batched=True, 

@@ -95,7 +95,8 @@ class AbsSumFilter:
             batch_size=filter_batch_size,
             remove_columns=[self.col1, self.col2],
         )
-        fname = f"{MAIN_PATH}paraphrase/{CODE_NAME}-{str(int(datetime.now().timestamp()))}"
+        # fname = f"{MAIN_PATH}paraphrase/{CODE_NAME}-{str(int(datetime.now().timestamp()))}"
+        fname = f"{MAIN_PATH}paraphrase/{CODE_NAME}"
         if is_expert:
             fname = fname+"-expert"
         dfs = pd.DataFrame(self.res)
@@ -136,6 +137,7 @@ class AbsSumFilter:
             print("save the final result")
             # self.extract_data.save_to_disk(fname)
             self.extract_data.to_csv(f"{fname}-final.csv")
+            self.extract_data.to_csv(f"{MAIN_PATH}paraphrase/data/{CODE_NAME}.csv") # for demo purpose
         
         except Exception:
             pass

@@ -7,7 +7,7 @@ tie_encoder_decoder=True
 batch_size=16
 encoder_max_length=512
 decoder_max_length=128
-valid_num=500
+valid_num=5 #500
 resume_checkpoint=False
 # resume_checkpoint=MAIN_PATH+"summarization/checkpoint-100000"
 
@@ -37,13 +37,13 @@ seq2seq_args: dict = {
     "per_device_train_batch_size": batch_size,
     "per_device_eval_batch_size": batch_size,
     "predict_with_generate": True,
-    "logging_steps": 5000,
-    "save_steps": 50000,
-    "eval_steps": 20000,
-    "warmup_steps": 8000,
-    "max_steps": 300000,
+    "logging_steps": 5, # 5000,
+    "save_steps": 10, #50000,
+    "eval_steps": 5, #20000,
+    "warmup_steps": 0, #8000,
+    "max_steps": 20, #300000,
     "overwrite_output_dir": True,
-    "save_total_limit": 4,
+    "save_total_limit": 1, #4,
     "fp16": True, 
 }
 
@@ -109,9 +109,9 @@ is_expert = False
 # filter_data_path = MAIN_PATH+"summarization/filtered_paracotta-preds.csv"
 # col1='hyp'
 # col2='label'
-
-CODE_NAME = "full_liputan6-indolem-preds"
+filter_data_conf = {}
+CODE_NAME = "demo"
 filter_data_from_csv = True
-filter_data_path = MAIN_PATH+"summarization/full_liputan6-indolem-preds.csv"
+filter_data_path = MAIN_PATH+"summarization/demo.csv"
 col1='hyp'
 col2='label'
