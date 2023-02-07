@@ -113,5 +113,5 @@ filter_data_conf = {}
 CODE_NAME = "demo"
 filter_data_from_csv = True
 filter_data_path = MAIN_PATH+"summarization/demo.csv"
-col1='hyp'
-col2='label'
+col1='summary'
+col2='generated_summary'
