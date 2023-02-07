@@ -86,7 +86,7 @@ all_models = [
 ] # for demo purpose
 
 # %%
-PATH = "/home/bertshare"
+PATH = "/home/indobertshare"
 MAIN_PATH = PATH+"/paraphrase"
 
 # %%

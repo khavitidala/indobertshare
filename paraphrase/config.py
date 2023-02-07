@@ -1,4 +1,4 @@
-PATH = "/home/bertshare"
+PATH = "/home/indobertshare"
 MAIN_PATH = PATH+"/paraphrase"
 
 # Training Config

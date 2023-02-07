@@ -101,7 +101,7 @@ if "cuda" in device:
     device = "cuda"
     model = model.cuda()
 
-PATH = "/home/bertshare"
+PATH = "/home/indobertshare"
 MAIN_PATH = PATH+"/paraphrase"
 # dataset_conf: dict = {
 #     "path": "csv",
