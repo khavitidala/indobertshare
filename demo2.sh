@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# install all requirements
-pip install -r requirements.txt
-
 # download liputan6_data
 cd summarization
 tar -xvf liputan6_data.tar.gz
