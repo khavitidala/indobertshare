@@ -153,8 +153,8 @@ dataset_conf: dict = {
     "data_dir": MAIN_PATH+"/data",
     "data_files": MAIN_PATH+"/data/demo.csv"
 }
-col1 = "references"
-col2 = "paraphrase"
+col1 = "summary"
+col2 = "generated_summary"
 
 class ParaphraseDataset(Dataset):
     
