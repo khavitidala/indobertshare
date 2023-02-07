@@ -13,4 +13,5 @@ gdown --id 1Q9_LLhPhbboOPQ-u8aw8dzFYIMtijXKC
 # download indobart fine-tuned paraphrase generation checkpoint
 cd ..
 cd paraphrase
+cd save
 gdown --id 1XyRIW4O0T4GeglufIpRobpP3hX1nbFNd
