@@ -1,5 +1,4 @@
 pandas
-sklearn
 seaborn
 matplotlib
 nltk==3.4.5
