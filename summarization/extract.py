@@ -18,7 +18,7 @@ class AbsSumExtract:
     @cached_property
     def extract_data(self):
         extract_data = datasets.load_dataset(**extract_data_conf)
-        extract_data = extract_data.select(range(32)) # for demo purpose
+        extract_data = extract_data.select(range(64)) # for demo purpose
         return extract_data
     
     @cached_property
