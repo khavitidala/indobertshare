@@ -9,7 +9,6 @@ gdown --id 1LNRkeSVkTpS7-o8Go7vk6YZNVZ1eHZFh
 
 # download summarization indolem-bertshare 150000 checkpoint
 gdown --id 1Q9_LLhPhbboOPQ-u8aw8dzFYIMtijXKC
-tar -xvf checkpoint-150000.tar.gz
 
 # download indobart fine-tuned paraphrase generation checkpoint
 cd ..
