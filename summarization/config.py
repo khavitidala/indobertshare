@@ -1,4 +1,4 @@
-MAIN_PATH = "/workspace/indobertshare/"
+MAIN_PATH = "/home/indobertshare/"
 
 # Training Config
 

@@ -1,4 +1,4 @@
-PATH = "/workspace/bertshare"
+PATH = "/home/bertshare"
 MAIN_PATH = PATH+"/paraphrase"
 
 # Training Config
