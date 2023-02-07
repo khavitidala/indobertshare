@@ -41,9 +41,9 @@ seq2seq_args: dict = {
     "save_steps": 10, #50000,
     "eval_steps": 5, #20000,
     "warmup_steps": 0, #8000,
-    "max_steps": 20, #300000,
+    "max_steps": 10, #300000,
     "overwrite_output_dir": True,
-    "save_total_limit": 1, #4,
+    "save_total_limit": 4,
     "fp16": True, 
 }
 
