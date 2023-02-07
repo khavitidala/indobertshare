@@ -4,7 +4,7 @@ matplotlib
 nltk==3.4.5
 tqdm==4.48.2
 torch==1.7.1
-datasets==1.4.1
+datasets==2.9.0
 tokenizers==0.10.3
 rouge_score==0.0.4
 sentencepiece==0.1.95
