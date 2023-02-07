@@ -108,7 +108,7 @@ class ParaphraseDataset(Dataset):
 
     def __init__(self, tokenizer, is_expert=False, *args, **kwargs):
         self.data = self.load_dataset(is_expert)
-        self.data = self.data.select(32) # for demo purpose
+        self.data = self.data.select(range(32)) # for demo purpose
         self.tokenizer = tokenizer
     
     def __getitem__(self, index):
