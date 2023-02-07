@@ -136,8 +136,8 @@ class AbsSumFilter:
 
             print("save the final result")
             # self.extract_data.save_to_disk(fname)
-            self.extract_data.to_csv(f"{fname}-final.csv")
-            self.extract_data.to_csv(f"{MAIN_PATH}paraphrase/data/{CODE_NAME}.csv") # for demo purpose
+            self.extract_data.to_csv(f"{fname}-final.csv", index=False)
+            self.extract_data.to_csv(f"{MAIN_PATH}paraphrase/data/{CODE_NAME}.csv", index=False) # for demo purpose
         
         except Exception:
             pass
